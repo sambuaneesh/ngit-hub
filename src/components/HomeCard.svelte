@@ -7,7 +7,7 @@
 </script>
 
 <div>
-  <div class="card m-3" style="width: 18rem;">
+  <div class="card m-3 text-white bg-dark" style="width: 18rem;">
     <img src={imgSrc} class="card-img-top" alt="img" />
     <div class="card-body">
       <h5 class="card-title">{cardTitle}</h5>
@@ -21,5 +21,7 @@
   img {
     max-width: min-content;
     align-self: center;
+    max-height: 250px;
+    /* background-color: white; */
   }
 </style>

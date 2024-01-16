@@ -190,117 +190,183 @@ int main()
   {
     title: `4.Implementation of Singly Linked List operations.`,
     code: `
+// C program for the all operations in
+// the Singly Linked List
 #include <stdio.h>
 #include <stdlib.h>
-void push();
-void pop();
-void display();
+// Linked List Node
 struct node
 {
-    int val;
-    struct node *next;
+    int info;
+    struct node *link;
 };
-struct node *head;
-void main()
+struct node *start = NULL, *temp;
+
+// Function to create list with n nodes initially
+void insertAtBegin()
 {
-    int choice = 0;
-    printf("\nStack operations using linked list");
-    printf("\nChose one from the below options...");
-    printf("\n1.Push\n2.Pop\n3.Show\n4.Exit");
-    while (choice != 4)
+    temp = (struct node *)malloc(sizeof(struct node));
+    scanf("%d", &(temp->info));
+    temp->link = NULL;
+    if (start == NULL)
+        start = temp;
+    else
     {
-        printf("\nEnter your choice \n");
+        temp->link = start;
+        start = temp;
+    }
+}
+void insertAtEnd()
+{
+    int data;
+    struct node *temp, *head;
+    temp = malloc(sizeof(struct node));
+    scanf("%d", &data);
+
+    // Changes links
+    temp->link = 0;
+    temp->info = data;
+    head = start;
+    while (head->link != NULL)
+    {
+        head = head->link;
+    }
+    head->link = temp;
+}
+void insertAtPosition()
+{
+    struct node *temp, *newnode;
+    int pos, data, i = 1;
+    newnode = malloc(sizeof(struct node));
+    scanf("%d %d", &pos, &data);
+
+    // Change Links
+    temp = start;
+    newnode->info = data;
+    newnode->link = 0;
+    while (i < pos - 1)
+    {
+        temp = temp->link;
+        i++;
+    }
+    newnode->link = temp->link;
+    temp->link = newnode;
+}
+
+// Function to delete from the front
+// of the linked list
+void deleteFirst()
+{
+    struct node *temp;
+    if (start == NULL)
+        printf("\nList is empty\n");
+    else
+    {
+        temp = start;
+        start = start->link;
+        free(temp);
+    }
+}
+
+// Function to delete from the end
+// of the linked list
+void deleteEnd()
+{
+    struct node *temp, *prevnode;
+    if (start == NULL)
+        printf("\nList is Empty\n");
+    else
+    {
+        temp = start;
+        while (temp->link != 0)
+        {
+            prevnode = temp;
+            temp = temp->link;
+        }
+        free(temp);
+        prevnode->link = 0;
+    }
+}
+
+// Function to delete from any specified
+// position from the linked list
+void deletePosition()
+{
+    struct node *temp, *position;
+    int i = 1, pos;
+
+    // If LL is empty
+    if (start == NULL)
+        printf("\nList is empty\n");
+
+    // Otherwise
+    else
+    {
+        printf("\nEnter index : ");
+
+        // Position to be deleted
+        scanf("%d", &pos);
+        position = malloc(sizeof(struct node));
+        temp = start;
+
+        // Traverse till position
+        while (i < pos - 1)
+        {
+            temp = temp->link;
+            i++;
+        }
+
+        // Change Links
+        position = temp->link;
+        temp->link = position->link;
+
+        // Free memory
+        free(position);
+    }
+}
+void show()
+{
+    struct node *temp = start;
+    while (temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->link;
+    }
+    printf("\n");
+}
+int main()
+{
+    int choice;
+    while (1)
+    {
         scanf("%d", &choice);
+
         switch (choice)
         {
         case 1:
-        {
-            push();
+            insertAtBegin();
             break;
-        }
         case 2:
-        {
-            pop();
+            insertAtEnd();
             break;
-        }
         case 3:
-        {
-            display();
+            insertAtPosition();
             break;
-        }
         case 4:
-        {
-            printf("Exiting....");
+            deleteFirst();
             break;
-        }
-        default:
-        {
-            printf("Please Enter valid choice ");
-        }
-        };
-    }
-}
-void push()
-{
-    int val;
-    struct node *ptr = (struct node *)malloc(sizeof(struct node));
-    if (ptr == NULL)
-    {
-        printf("not able to push the element");
-    }
-    else
-    {
-        printf("Enter the value\n");
-        scanf("%d", &val);
-        if (head == NULL)
-        {
-            ptr->val = val;
-            ptr->next = NULL;
-            head = ptr;
-        }
-        else
-        {
-            ptr->val = val;
-            ptr->next = head;
-            head = ptr;
+        case 5:
+            deleteEnd();
+            break;
+        case 6:
+            deletePosition();
+            break;
+        case 7:
+            show();
+            exit(1);
         }
     }
-}
-void pop()
-{
-    int item;
-    struct node *ptr;
-    if (head == NULL)
-    {
-        printf("Underflow");
-    }
-    else
-    {
-        item = head->val;
-        ptr = head;
-        head = head->next;
-        free(ptr);
-        printf("Item popped");
-    }
-}
-void display()
-{
-    int i;
-    struct node *ptr;
-    ptr = head;
-    if (ptr == NULL)
-    {
-        printf("Stack is empty\n");
-    }
-    else
-    {
-        printf("Printing Stack elements \n");
-        while (ptr != NULL)
-        {
-            printf("%d\n", ptr->val);
-            ptr = ptr->next;
-        }
-    }
+    return 0;
 }
     `,
   },
@@ -853,41 +919,53 @@ int main()
   {
     title: `11.Implementation of Quick sort`,
     code: `
-#include <stdio.h>
-
-void swap(int *a, int *b)
-{
-    (*a==*b)?:(*a+=*b)&&(*b=*a-*b)&&(*a-=*b);
-}
-
-void quickSort(int number[],int first,int last)
-{
-    //Write your Quick-sort logic here... 
-    
-    if(first >= last) return;
-    int pindex = first;
-    for(int i=first; i<last; i++) if(number[i] <= number[last]) swap(&number[i], &number[pindex++]);
-    swap(&number[last], &number[pindex]);
-    // number[last]==number[pindex]?:(number[last]+=number[pindex])&&(number[pindex]=number[last]-number[pindex])&&(number[last]-=number[pindex]);
-    quickSort(number,first,pindex-1);
-    quickSort(number,pindex+1,last);
-}
-
-// main function
-int main() {
-	int n;
-	scanf("%d",&n);
-        int data[n];
-	for(int i=0;i<n;i++)
-	{
-		scanf("%d",&data[i]);
+    #include <stdio.h>
+    void quickSort(int number[], int first, int last)
+    {
+        // Write your Quick-sort logic here...
+        int i, j, pivot, temp;
+        if (first < last)
+        {
+            pivot = first;
+            i = first;
+            j = last;
+            while (i < j)
+            {
+                while (number[i] < number[pivot] && i < last)
+                    i++;
+                while (number[j] > number[pivot])
+                    j--;
+                if (i < j)
+                {
+                    temp = number[i];
+                    number[i] = number[j];
+                    number[j] = temp;
+                }
+            }
+            temp = number[pivot];
+            number[pivot] = number[j];
+            number[j] = temp;
+            quickSort(number, first, j - 1);
+            quickSort(number, j + 1, last);
+        }
     }
-    quickSort(data, 0, n - 1);
-	for (int i = 0; i < n; ++i) {
-		printf("%d ", data[i]);
-	}
-}
-    `,
+    // main function
+    int main()
+    {
+        int n;
+        scanf("%d", &n);
+        int data[n];
+        for (int i = 0; i < n; i++)
+        {
+            scanf("%d", &data[i]);
+        }
+        quickSort(data, 0, n - 1);
+        for (int i = 0; i < n; ++i)
+        {
+            printf("%d ", data[i]);
+        }
+    }
+        `,
   },
   {
     title: `12.Implementation of Merge sort`,
@@ -982,60 +1060,39 @@ void merge(int arr[], int low, int mid, int high)
   {
     title: `13.Implementation of Shell sort`,
     code: `
+#include <math.h>
 #include <stdio.h>
-
-void swap(int *a, int *b)
+void shellSort(int a[], int n)
 {
-    *a == *b ?: (*a += *b) && (*b = *a - *b) && (*a -= *b);
-}
-
-void insert_sort(int *arr, int n)
-{
-    int i, key, j;
-    for (int i = 1; i < n; i++)
+    // Write your Shell-Sort logic here...
+    for (int interval = n / 2; interval > 0; interval = interval / 2)
     {
-        key = arr[i];
-        j = i - 1;
-        while (j >= 0 && arr[j] > key)
+        for (int i = interval; i < n; i = i + 1)
         {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+            int temp = a[i];
+            int j;
+            for (j = i; j >= interval && a[j - interval] > temp; j = j - interval)
+            {
+                a[j] = a[j - interval];
+            }
+            a[j] = temp;
         }
-        arr[j + 1] = key;
     }
 }
-
-void printarr(int *arr, int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        printf("%d ", arr[i]);
-    }
-}
-
 int main()
 {
-    int gap = 4;
-    int arr[100];
-    int size;
-    scanf("%d", &size);
-    for (int i = 0; i < size; i++)
-        scanf("%d", &arr[i]);
-    gap = size - 1;
-    while (gap > 1)
+    int n;
+    scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++)
     {
-
-        for (int i = 0; i + gap < size; i++)
-        {
-            if (arr[i] > arr[i + gap])
-                swap(&arr[i], &arr[i + gap]);
-        }
-        gap /= 2;
+        scanf("%d", &arr[i]);
     }
-    insert_sort(arr, size);
-    printarr(arr, size);
-}
-    `,
+    shellSort(arr, n);
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    return 0;
+}    `,
   },
   {
     title: `14.Implementation of Heap sort`,
@@ -1223,148 +1280,116 @@ void main()
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node
+struct node
 {
-    int data;
-    struct Node *left;
-    struct Node *right;
+    int key;
+    struct node *left, *right;
 };
 
-struct Node *newNode(int d)
+struct node *newNode(int item)
 {
-    struct Node *nNode = (struct Node *)malloc(sizeof(struct Node));
-    nNode->data = d;
-    nNode->left = NULL;
-    nNode->right = NULL;
-    return nNode;
+    struct node *temp = (struct node *)malloc(sizeof(struct node));
+    temp->key = item;
+    temp->left = temp->right = NULL;
+    return temp;
 }
 
-struct Node *insertNode(struct Node *root, int d)
+struct node *insert(struct node *node, int key)
 {
-    if (root == NULL)
-    {
-        root = newNode(d);
-        return root;
-    }
-    if (d > root->data)
-        root->right = insertNode(root->right, d);
-    else
-        root->left = insertNode(root->left, d);
-
-    return root;
+    if (node == NULL)
+        return newNode(key);
+    if (key < node->key)
+        node->left = insert(node->left, key);
+    else if (key > node->key)
+        node->right = insert(node->right, key);
+    return node;
 }
 
-struct Node *deleteNode(struct Node *root, int d)
+struct node *minValueNode(struct node *node)
+{
+    struct node *current = node;
+    while (current->left != NULL)
+        current = current->left;
+    return current;
+}
+
+struct node *deleteNode(struct node *root, int key)
 {
     if (root == NULL)
         return root;
-    if (d < root->data)
-    {
-        root->left = deleteNode(root->left, d);
-    }
-    if (d > root->data)
-    {
-        root->right = deleteNode(root->right, d);
-    }
+    if (key < root->key)
+        root->left = deleteNode(root->left, key);
+    else if (key > root->key)
+        root->right = deleteNode(root->right, key);
     else
     {
-        if (root->left == NULL && root->right == NULL)
-        {
-            free(root);
-            return NULL;
-        }
         if (root->left == NULL)
         {
-            struct Node *temp = root->right;
+            struct node *temp = root->right;
             free(root);
             return temp;
         }
         else if (root->right == NULL)
         {
-            struct Node *temp = root->left;
+            struct node *temp = root->left;
             free(root);
             return temp;
         }
-        struct Node *successor = root->right;
-        while (successor->left != NULL)
-            successor = successor->left;
-        root->data = successor->data;
-        // Delete inorder successor
-        root->right = deleteNode(root->right, successor->data);
+        struct node *temp = minValueNode(root->right);
+        root->key = temp->key;
+        root->right = deleteNode(root->right, temp->key);
     }
     return root;
 }
 
-void inorder(struct Node *root)
+struct node *search(struct node *root, int key)
 {
-    if (root == NULL)
-        return;
-    inorder(root->left);
-    printf("%d -> ", root->data);
-    inorder(root->right);
-}
-
-void postorder(struct Node *root)
-{
-    if (root == NULL)
-        return;
-    postorder(root->left);
-    postorder(root->right);
-    printf("%d -> ", root->data);
-}
-
-void preorder(struct Node *root)
-{
-    if (root == NULL)
-        return;
-    printf("%d -> ", root->data);
-    preorder(root->left);
-    preorder(root->right);
+    if (root == NULL || root->key == key)
+        return root;
+    if (root->key < key)
+        return search(root->right, key);
+    return search(root->left, key);
 }
 
 int main()
 {
-    int d, choice;
-    struct Node *root = NULL;
+    struct node *root = NULL;
+    int choice, key;
     while (1)
     {
-        printf("1.Insert 2.inorder 3.preorder 4.postorder 5.delete 6.Exit\nEnter your choice : ");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Search\n");
+        printf("4. Quit\n");
+        printf("Enter your choice : ");
         scanf("%d", &choice);
         switch (choice)
         {
         case 1:
-            printf("Enter data of node to be inserted : ");
-            scanf("%d", &d);
-            printf("\n");
-            root = insertNode(root, d);
+            printf("Enter the key to be inserted: ");
+            scanf("%d", &key);
+            root = insert(root, key);
             break;
         case 2:
-            inorder(root);
-            printf("\n");
+            printf("Enter the key to be deleted: ");
+            scanf("%d", &key);
+            root = deleteNode(root, key);
             break;
         case 3:
-            preorder(root);
-            printf("\n");
+            printf("Enter the key to be searched: ");
+            scanf("%d", &key);
+            if (search(root, key) != NULL)
+                printf("Key found\n");
+            else
+                printf("Key not found\n");
             break;
         case 4:
-            postorder(root);
-            printf("\n");
-            break;
-        case 5:
-            printf("Enter data of node to be deleted : ");
-            scanf("%d", &d);
-            root = deleteNode(root, d);
-            printf("Inorder traversal: ");
-            inorder(root);
-        case 6:
-            exit(1);
+            exit(0);
+        default:
+            printf("Wrong choice\n");
         }
     }
-
-    // root = insertNode(root, 5);
-    // root = insertNode(root, 4);
-    // root = insertNode(root, 6);
-    inorder(root);
+    return 0;
 }
     `,
   },

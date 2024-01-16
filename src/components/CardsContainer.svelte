@@ -2,16 +2,17 @@
   import Card from "./Card.svelte";
 
   export let codes = [];
+  export let lang;
 </script>
 
-<div >
+<div>
   {#each codes as code}
-    <Card title={code.title} code={code.code} />
+    <Card title={code.title} code={code.code} {lang} />
   {/each}
 </div>
 
 <style lang="scss">
-  div{
+  div {
     display: flex;
     overflow: scroll;
     flex-wrap: wrap;
@@ -22,5 +23,4 @@
   //     flex-direction: column;
   //   }
   // }
-  
 </style>

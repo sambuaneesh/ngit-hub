@@ -1,13 +1,11 @@
 <script lang="ts">
-  import Card from "../components/Card.svelte";
-  import codes from "../codes/dsa";
+  import codes from "../codes/python";
   import CardsContainer from "../components/CardsContainer.svelte";
-  import { Link } from "svelte-routing";
   import { checkLogin } from "./functions";
-  let lang = "c";
+  let lang = "python";
   checkLogin();
 </script>
 
-<div class="dsa-container ">
+<div class="acs-container ">
   <CardsContainer {codes} {lang} />
 </div>

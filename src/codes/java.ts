@@ -218,29 +218,50 @@ public class JavaExample {
   {
     title: `3.(a) Write a Java program to illustrate the concept of Single level and Multi level Inheritance. `,
     code: `
-class A {
-    A() {
-        System.out.println("Inside A's Constructor");
+    // Single level
+    class A {
+        A() {
+            System.out.println("Inside A's Constructor");
+        }
     }
-}
-
-class B extends A {
-    B() {
-        System.out.println("Inside B's Constructor");
+    
+    class B extends A {
+        B() {
+            System.out.println("Inside B's Constructor");
+        }
     }
-}
-
-class C extends B {
-    C() {
-        System.out.println("Inside C's Constructor");
+    
+    class Singledemo {
+        public static void main(String args[]) {
+            B b1 = new B();
+        }
     }
-}
-
-class Multidemo {
-    public static void main(String args[]) {
-        C c1 = new C();
+    
+    // Multi level
+    class A {
+        A() {
+            System.out.println("Inside A's Constructor");
+        }
     }
-}
+    
+    class B extends A {
+        B() {
+            System.out.println("Inside B's Constructor");
+        }
+    }
+    
+    class C extends B {
+        C() {
+            System.out.println("Inside C's Constructor");
+        }
+    }
+    
+    class Multidemo {
+        public static void main(String args[]) {
+            C c1 = new C();
+        }
+    }
+    
 
       `,
   },
@@ -1794,6 +1815,8 @@ public class Hash_Map_Demo {
   {
     title: `15.(a) Write a Java applet program for handling mouse & key events `,
     code: `
+
+// Mouse Events
 import java.awt.*;
 import java.awt.event.*;
 
@@ -1835,7 +1858,36 @@ public class MouseListenerExample extends Frame implements
         new MouseListenerExample();
     }
 }
-      `,
+
+// Key events
+import java.awt.*;
+import java.applet.*;
+
+/*
+ <applet code="Key" width=300 height=100
+ </applet>
+ */
+
+ public class Key extends Applet implements KeyListener{
+    String msg = "";
+    int x=10, y=20;
+    public void init(){
+        addKeyListener(this);
+    }
+    public void keyPressed(KeyEvent ke){
+        showStatus("Key Down");
+    }
+    public void keyReleased(KeyEvent ke){
+        showStatus("Key Up");
+    }
+    public void keyTyped(KeyEvent ke){
+        msg+=ke.getKeyChar();
+        repaint();
+    }
+    public void paint(Graphics g){
+        g.drawString(msg,x,y);
+    }
+ }      `,
   },
   {
     title: `15.(b) Write a JDBC program to create a table of employee with minimum of 5 fields and insert 5

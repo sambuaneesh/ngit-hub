@@ -6,6 +6,8 @@
   import Home from "./pages/Home.svelte";
   import Java from "./pages/Java.svelte";
   import Dsa from "./pages/DSA.svelte";
+  import Acs from "./pages/ACS.svelte";
+  import JavaASection from "./pages/JavaASection.svelte";
   import { Router, Route, navigate } from "svelte-routing";
   import { firebaseConfig } from "./configs";
   import { initializeApp } from "firebase/app";
@@ -29,6 +31,8 @@
     <Route path="/home"><Home /></Route>
     <Route path="/java"><Java /></Route>
     <Route path="/dsa"><Dsa /></Route>
+    <Route path="/java/a"><JavaASection /></Route>
+    <Route path="/acs"><Acs /></Route>
   </Router>
 </main>
 

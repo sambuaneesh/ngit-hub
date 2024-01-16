@@ -12,7 +12,7 @@
         </Link>
       </div>
       {#if localStorage.getItem("user")}
-        <button class="btn btn-danger m-2" on:click={logoutHandler}>
+        <button class="btn bg-danger m-2" on:click={logoutHandler}>
           <a href="/"> Logout </a>
         </button>
       {/if}
@@ -24,5 +24,9 @@
   a {
     text-decoration: none;
     color: white;
+  }
+
+  .navbar {
+    background-color: #c70448 !important;
   }
 </style>

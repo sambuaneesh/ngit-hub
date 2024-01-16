@@ -25,3 +25,4 @@ dist-ssr
 
 src/configs.ts
 configs.ts
+*.zip

@@ -18,7 +18,8 @@
   <div>
     <i>
       <header class="text-center p-5">
-        <h1 class="display-2 font-weight-bold">Welcome to NGIT-HUB!</h1>
+        <!-- <h1 class="display-2 font-weight-bold">Welcome to NGIT-HUB!</h1> -->
+        <img src="./ngithubv2.png" alt="" class="main-logo" />
       </header>
       <div class="container text-center">
         <p class="lead">
@@ -41,8 +42,15 @@
   </div>
 </main>
 
-<style>
+<style lang="scss">
   main > div {
     margin-top: -10%;
+  }
+  main {
+    background-color: #010000;
+    .container {
+      color: #fd4686;
+      opacity: 80% !important;
+    }
   }
 </style>

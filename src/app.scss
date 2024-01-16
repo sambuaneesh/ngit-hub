@@ -1,20 +1,25 @@
 .bg-main {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   /* fallback for old browsers */
   background: #6a11cb;
 
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(
-    to right,
-    rgba(106, 17, 203, 1),
-    rgba(37, 117, 252, 1)
+    to bottom,
+    // rgba(106, 17, 203, 1),
+    // rgba(37, 117, 252, 1)
+    rgb(199, 4, 72),
+    rgb(143, 0, 195)
   );
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
-    to right,
-    rgba(106, 17, 203, 1),
-    rgba(37, 117, 252, 1)
+    to bottom,
+    // rgba(106, 17, 203, 1),
+    // rgba(37, 117, 252, 1)
+    rgb(199, 4, 72),
+    rgb(143, 0, 195)
   );
 }
 
@@ -36,3 +41,36 @@
     min-width: 48rem !important;
   }
 }
+
+.acs-container {
+  .card {
+    min-height: 12rem;
+    min-width: 16rem !important;
+  }
+  // @media screen and (max-width: 500px) {
+  //   min-height: 3rem !important;
+  // }
+}
+
+.main-logo {
+  // height: 50vh;
+  max-width: 80vw;
+}
+
+body {
+  background-color: #010000 !important;
+}
+
+button,
+.btn-primary {
+  background-color: #c70448 !important;
+  border-color: #c70448 !important;
+}
+
+.hljs {
+  // color: white !important;
+  background: #212529 !important;
+}
+// .hljs-string {
+//   color: grey !important;
+// }
